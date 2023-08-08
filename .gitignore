@@ -2,4 +2,5 @@ SSHcat.key
 venv/
 __pycache__
 .mypy_cache
-
+dist/
+build/
