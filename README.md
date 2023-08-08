@@ -7,9 +7,7 @@ It is meant to be used to somewhat protect CTF challenges on shared infrastructu
 ## Features
 
 
-- Easy to use: Just specify the command you want the SSH server to pipe to.
-- Based on Paramiko: Makes use of the robust SSH library.
-- Customizable: Choose your own username, password, and port.
+- Easy to use: Just specify the command, username, password, and portyou want the SSH server to pipe to.
 
 ## Usage
 
@@ -24,6 +22,23 @@ Connect to the server with your SSH client:
 ```bash
 ssh -p 2222 user@localhost
 ```
+### More Usage
+```bash
+sshcat --help
+Usage: sshcat [OPTIONS]
+
+Options:
+  --port INTEGER        [default: 2222]
+  --command TEXT        [default: echo helloworld]
+  --username TEXT       [default: user]
+  --password TEXT       [default: pass]
+  --install-completion  Install completion for the current shell.
+  --show-completion     Show completion for the current shell, to copy it or
+                        customize the installation.
+
+  --help                Show this message and exit.
+```
+
 
 ## Installation
 
