@@ -1,24 +1,25 @@
 # sshcat
 
-SSHcat is a custom SSH server in Python that accepts client connections and executes a specified command. This server is designed to handle interactive programs and provides seamless interaction over the SSH protocol.
+sshcat is a custom SSH server in Python that accepts client connections and executes a specified command. This server is designed to handle interactive programs and provides seamless interaction over the SSH protocol.
 
 It is meant to be used to somewhat protect CTF challenges on shared infrastructure. 
 
 It's a bit like sshd's ForceCommand http://man.openbsd.org/OpenBSD-current/man5/sshd_config.5#ForceCommand
 
-
+No users to configure on the system. 
 
 ## Features
 
 
 - Easy to use: Just specify the username and password (default user:pass), port (default 2222), and command you want the SSH server to run when conencted to.
+- 
 
 ## Usage
 
 Start the server with a specific command:
 
 ```bash
-sshcat --port 2222 --command "/bin/bash" --username "user" --password "pass"
+sshcat --port 2222 --command "/bin/bash" --username "user" --password "pass" # this will run as the user running sshcat on the server. if that's root, then you've given them a root shell...
 ```
 
 Connect to the server with your SSH client:
@@ -59,7 +60,7 @@ SSHcat uses Poetry for dependency management. Make sure you have [Poetry install
 2. Navigate to the project directory:
 
    ```bash
-   cd SSHcat
+   cd sshcat
    ```
 
 3. Install dependencies using Poetry:
