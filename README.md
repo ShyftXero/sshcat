@@ -34,7 +34,7 @@ SSHcat uses Poetry for dependency management. Make sure you have [Poetry install
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/SSHcat.git
+   git clone https://github.com/ShyftXero/SSHcat.git
    ```
 
 2. Navigate to the project directory:
