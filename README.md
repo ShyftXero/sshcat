@@ -2,7 +2,7 @@
 
 SSHcat is a custom SSH server in Python that accepts client connections and executes a specified command. This server is designed to handle interactive programs and provides seamless interaction over the SSH protocol.
 
-It is meant to be used to protect CTF challenges on shared infrastructure somewhat. 
+It is meant to be used to somewhat protect CTF challenges on shared infrastructure. 
 
 ## Features
 
