@@ -10,6 +10,8 @@ import paramiko
 import typer
 import pty
 
+app = typer.Typer()
+
 KEY_FILENAME = "SSHcat.key"
 
 
@@ -52,8 +54,11 @@ def handle_client(client_socket, command, username, password):
     transport.add_server_key(host_key)
 
     server = SSHServer(username, password)
-    transport.start_server(server=server)
-
+    try:
+        transport.start_server(server=server)
+    except EOFError as e:
+        print(e)
+        return 
     channel = transport.accept(20)
     if channel is None:
         typer.echo("*** No channel.")
@@ -87,10 +92,10 @@ def handle_client(client_socket, command, username, password):
     channel.close()
     transport.close()
 
-
+@app.command()
 def main(
-    port: int = 8022,
-    command: str = "echo helloworld",
+    port: int = 2222,
+    command: str = "echo hello world",
     username: str = "user",
     password: str = "pass",
 ):

@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "sshcat"
+version = "0.1.0"
+description = "A custom SSH server to execute commands."
+authors = ["Eli McRae <shyft@shyft.us>"]
+license = "MIT"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+paramiko = "^2.7.2"
+typer = "^0.3.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+
+[tool.poetry.scripts]
+sshcat = 'sshcat:main'

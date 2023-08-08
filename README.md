@@ -6,49 +6,61 @@ It is meant to be used to protect CTF challenges on shared infrastructure somewh
 
 ## Features
 
-- Customizable command execution
-- Username and password authentication
-- Interactive shell support
-- Dynamic key generation
+
+- Easy to use: Just specify the command you want the SSH server to pipe to.
+- Based on Paramiko: Makes use of the robust SSH library.
+- Customizable: Choose your own username, password, and port.
+
+## Usage
+
+Start the server with a specific command:
+
+```bash
+sshcat --port 2222 --command "/bin/bash" --username "user" --password "pass"
+```
+
+Connect to the server with your SSH client:
+
+```bash
+ssh -p 2222 user@localhost
+```
+
+## Installation
+
+### Using Poetry
+
+SSHcat uses Poetry for dependency management. Make sure you have [Poetry installed](https://python-poetry.org/docs/#installation) on your system.
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/SSHcat.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd SSHcat
+   ```
+
+3. Install dependencies using Poetry:
+
+   ```bash
+   poetry install
+   ```
+
+### Building and Installing the Package
+
+To build and install the package, run:
+
+```bash
+poetry build
+pip install dist/sshcat-<version>.tar.gz
+```
+
 
 ## Dependencies
 
 - paramiko
 - typer
-
-## Installation
-
-You can clone this repository to your local machine and run it using Python.
-
-```bash
-git clone https://github.com/ShyftXero/SSHcat.git
-cd SSHcat
-pip install -r requirements.txt
-python sshcat.py
-```
-
-## Usage
-
-You can run SSHcat using the following command:
-
-```bash
-python sshcat.py --port 2222 --command "/bin/bash" --username "user" --password "pass"
-```
-
-- `--port` specifies the port number (default is 8022)
-- `--command` specifies the command to execute (default is "echo helloworld")
-- `--username` specifies the username for authentication (default is "user")
-- `--password` specifies the password for authentication (default is "pass")
-
-## Contributing
-
-Feel free to fork this project, submit a pull request, or open an issue if you have any enhancements or find any bugs.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## Acknowledgments
-
-- paramiko library for SSH support
-- typer library for command-line interface handling
+- poetry
