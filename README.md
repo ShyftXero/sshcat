@@ -8,18 +8,15 @@ It's a bit like sshd's ForceCommand http://man.openbsd.org/OpenBSD-current/man5/
 
 No users to configure on the system. 
 
-## Features
-
-
-- Easy to use: Just specify the username and password (default user:pass), port (default 2222), and command you want the SSH server to run when conencted to.
-- 
+Just specify the username and password (default user:pass), port (default 2222), and command you want the SSH server to run when conencted to.
+ 
 
 ## Usage
 
 Start the server with a specific command:
 
 ```bash
-sshcat --port 2222 --command "/bin/bash" --username "user" --password "pass" # this will run as the user running sshcat on the server. if that's root, then you've given them a root shell...
+sshcat --port 2222 --command "cat /tmp/coolfile.txt" --username "user" --password "pass" # this will run as the user running sshcat on the server. if that's root, then you've given them a root shell...
 ```
 
 Connect to the server with your SSH client:
