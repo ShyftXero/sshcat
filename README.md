@@ -4,10 +4,14 @@ SSHcat is a custom SSH server in Python that accepts client connections and exec
 
 It is meant to be used to somewhat protect CTF challenges on shared infrastructure. 
 
+It's a bit like sshd's ForceCommand http://man.openbsd.org/OpenBSD-current/man5/sshd_config.5#ForceCommand
+
+
+
 ## Features
 
 
-- Easy to use: Just specify the command, username, password, and portyou want the SSH server to pipe to.
+- Easy to use: Just specify the username and password (default user:pass), port (default 2222), and command you want the SSH server to run when conencted to.
 
 ## Usage
 
