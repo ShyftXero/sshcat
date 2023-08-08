@@ -1,6 +1,8 @@
 # SSHcat
 
-SSHcat is a custom SSH server written in Python that accepts client connections and executes a specified command. This server is designed to handle interactive programs and provides a seamless interaction over the SSH protocol.
+SSHcat is a custom SSH server in Python that accepts client connections and executes a specified command. This server is designed to handle interactive programs and provides seamless interaction over the SSH protocol.
+
+It is meant to be used to protect CTF challenges on shared infrastructure somewhat. 
 
 ## Features
 
@@ -19,13 +21,11 @@ SSHcat is a custom SSH server written in Python that accepts client connections 
 You can clone this repository to your local machine and run it using Python.
 
 ```bash
-git clone https://github.com/yourusername/SSHcat.git
+git clone https://github.com/ShyftXero/SSHcat.git
 cd SSHcat
 pip install -r requirements.txt
 python sshcat.py
 ```
-
-Replace `yourusername` with your GitHub username, and update the URL if you've named the repository differently.
 
 ## Usage
 
