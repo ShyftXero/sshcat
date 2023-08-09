@@ -1,14 +1,17 @@
 # shyft
 # 20230807
-
+# see this for more ideas to improve... https://stackoverflow.com/a/68801952
 import os
 import select
 import socket
+import struct
 import threading
 import subprocess
+import time
 import paramiko
 import typer
 import pty
+import signal
 from rich import print
 
 app = typer.Typer()
@@ -64,38 +67,61 @@ def handle_client(client_socket:socket.socket, command, username, password):
     except EOFError as e:
         print(e)
         return 
-    channel = transport.accept(20)
-    if channel is None:
+    ssh_channel = transport.accept(20)
+    if ssh_channel is None:
         print("*** No channel.")
         return
+    
+    ssh_channel.resize_pty(width=200, height=110)
 
-    master_fd, slave_fd = pty.openpty()
+    # return 
+    server_fd, client_fd = pty.openpty()
+    
     proc = subprocess.Popen(
-        command,
+        f"/bin/bash -c '{command}'",
         shell=True,
-        stdin=slave_fd,
-        stdout=slave_fd,
-        stderr=slave_fd,
+        stdin=client_fd,
+        stdout=client_fd,
+        stderr=client_fd,
         close_fds=True,
     )
 
     # channel.sendall(b"Executing: " + command.encode("utf-8") + b"\n")
-    
-    while proc.poll() is None:
-        rlist, _, _ = select.select([master_fd, channel], [], [], 0.1)
-        for r in rlist:
-            if r == master_fd:
-                data = os.read(master_fd, 1024)
-                channel.sendall(data)
-            elif r == channel:
-                data = channel.recv(1024)
+    interrupted = False
+    while proc.poll() is None and interrupted == False:
+        read_list, _, _ = select.select([server_fd, ssh_channel], [], [], 0.1)
+        for read_item in read_list:
+            if read_item == server_fd:
+                data = os.read(server_fd, 1024)
+                
+                if bytes('^C'.encode())  in data:
+                    print('User interrupted via ctrl-c; disconnecting:',client_socket.getpeername(), data)
+                    proc.send_signal(signal.SIGINT) # send sigint to program. 
+                    proc.terminate()
+                    ssh_channel.send(f'\033[{1024}A') # move cursor up
+                    ssh_channel.send(b'\n'*1024)     # overwrite what was there.  
+                    
+                    # time.sleep(1)
+                    interrupted = True
+                    break
+
+                ssh_channel.sendall(data)
+            elif read_item == ssh_channel:
+                data = ssh_channel.recv(1024)
                 if len(data) == 0:
                     break
-                os.write(master_fd, data)
+                os.write(server_fd, data)
+    
+    
+    try:
+        
+        ssh_channel.send_exit_status(proc.returncode)
 
-    channel.send_exit_status(proc.returncode)
-    channel.close()
-    transport.close()
+    except struct.error as e: 
+        print(e) 
+    finally:
+        ssh_channel.close()
+        transport.close()
 
 @app.command()
 def main(

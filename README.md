@@ -64,3 +64,7 @@ pip install dist/sshcat-<version>.tar.gz
 - paramiko
 - typer
 - poetry
+
+## See Also 
+related and funny name... 
+https://github.com/Matir/sshdog
