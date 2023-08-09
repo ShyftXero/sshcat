@@ -1,22 +1,22 @@
-# SSHcat
+# sshcat
 
-SSHcat is a custom SSH server in Python that accepts client connections and executes a specified command. This server is designed to handle interactive programs and provides seamless interaction over the SSH protocol.
+sshcat is a custom SSH server in Python that accepts client connections and executes a specified command. This server is designed to handle interactive programs and provides seamless interaction over the SSH protocol.
 
 It is meant to be used to somewhat protect CTF challenges on shared infrastructure. 
 
-## Features
+It's a bit like sshd's ForceCommand http://man.openbsd.org/OpenBSD-current/man5/sshd_config.5#ForceCommand
 
+No users to configure on the system. 
 
-- Easy to use: Just specify the command you want the SSH server to pipe to.
-- Based on Paramiko: Makes use of the robust SSH library.
-- Customizable: Choose your own username, password, and port.
+Just specify the username and password (default user:pass), port (default 2222), and command you want the SSH server to run when conencted to.
+ 
 
 ## Usage
 
 Start the server with a specific command:
 
 ```bash
-sshcat --port 2222 --command "/bin/bash" --username "user" --password "pass"
+sshcat --port 2222 --command "cat /bin/bash" --username "user" --password "pass" # this will run as the user running sshcat on the server. if that's root, then you've given them a root shell...
 ```
 
 Connect to the server with your SSH client:
@@ -24,6 +24,23 @@ Connect to the server with your SSH client:
 ```bash
 ssh -p 2222 user@localhost
 ```
+### More Usage
+```bash
+sshcat --help
+Usage: sshcat [OPTIONS]
+
+Options:
+  --port INTEGER        [default: 2222]
+  --command TEXT        [default: echo helloworld]
+  --username TEXT       [default: user]
+  --password TEXT       [default: pass]
+  --install-completion  Install completion for the current shell.
+  --show-completion     Show completion for the current shell, to copy it or
+                        customize the installation.
+
+  --help                Show this message and exit.
+```
+
 
 ## Installation
 
@@ -40,7 +57,7 @@ SSHcat uses Poetry for dependency management. Make sure you have [Poetry install
 2. Navigate to the project directory:
 
    ```bash
-   cd SSHcat
+   cd sshcat
    ```
 
 3. Install dependencies using Poetry:
@@ -64,7 +81,10 @@ pip install dist/sshcat-<version>.tar.gz
 - paramiko
 - typer
 - poetry
+<<<<<<< HEAD
 
 ## See Also 
 related and funny name... 
 https://github.com/Matir/sshdog
+=======
+>>>>>>> 79a82d9ee3576629c350c99267d266ff4dc4209d
